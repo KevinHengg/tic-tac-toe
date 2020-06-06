@@ -108,19 +108,26 @@ def minimax(board):
 
     optimal = 0
     possible_actions = actions(board)
-    v = 0
+    if player(board) == X:
+        # x will want to max value
+        v = -math.inf
+    else:
+        # o will want to min values
+        v= math.inf
     
     # for each possible actions
     for i in range(len(possible_actions)):
         temp_board = board
         temp_board = result(temp_board, possible_actions[i])
-        if player(board) == X:
-            val = x_max(temp_board)
+        if player(board) == X:           
+            # min value of what opponent o will play           
+            val = o_min(temp_board)
             if val >= v:
                 v = val
                 optimal = possible_actions[i]
         else: 
-            val = o_min(temp_board)
+            # max value of what opponent x will play
+            val = x_max(temp_board)
             if v >= val:
                 v = val
                 optimal = possible_actions[i]
