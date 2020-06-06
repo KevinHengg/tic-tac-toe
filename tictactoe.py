@@ -64,12 +64,13 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
     for i in range(3):
-        if (board[i][0] == board[i][1]) & (board[i][0] == board[i][2]) & (board[i][0] != EMPTY):
+        if (board[i][0] == board[i][1] == board[i][2]) & (board[i][0] != EMPTY):
             return board[i][0]
-        elif (board[0][i] == board[1][i]) & (board[0][i] == board[2][i]) & (board[0][i] != EMPTY):
+        elif (board[0][i] == board[1][i] == board[2][i]) & (board[0][i] != EMPTY):
             return board[0][i]
-        else:
-            return None
+    if ((board[0][0] == board[2][2] == board[1][1]) | (board[0][2] == board[2][0] == board[1][1])) & (board[1][1] != EMPTY):
+        return board[1][1]
+    return None
 
 
 def terminal(board):
@@ -151,6 +152,6 @@ def o_min(board):
         # resulting board
         temp_board = result(temp_board, actions(board)[i])
         val = x_max(temp_board)
-        if val < v:
+        if v >= val:
             v = val
     return v
